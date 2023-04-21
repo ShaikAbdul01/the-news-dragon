@@ -9,15 +9,24 @@ const LeftNav = () => {
       .then((data) => setCategories(data))
       .catch((error) => console.error(error.message));
   }, []);
-  return <div className="mt-4">
-    <h4>All Caregory</h4>
-    <button className="btn btn-secondary mt-2">National News</button>
-    <div className=" mt-4">
-      {
-        categories.map(categorie=><p key={categorie.id}><Link className="text-decoration-none text-secondary ms-4" to={`/categories/${categorie.id}`}>{categorie.name}</Link></p>)
-    }
+  return (
+    <div className="mt-4">
+      <h4>All Caregory</h4>
+      <button className="btn btn-secondary mt-2">National News</button>
+      <div className=" mt-4">
+        {categories?.map((category) => (
+          <p key={category.id}>
+            <Link
+              className="text-decoration-none text-secondary ms-4"
+              to={`/categories/${category.id}`}
+            >
+              {category.name}
+            </Link>
+          </p>
+        ))}
+      </div>
     </div>
-  </div>;
+  );
 };
 
 export default LeftNav;
