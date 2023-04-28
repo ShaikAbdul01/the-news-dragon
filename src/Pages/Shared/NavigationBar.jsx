@@ -5,8 +5,14 @@ import { FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 const NavigationBar = () => {
-  const { user } = useContext(AuthContext);
-
+  const { user, logOut } = useContext(AuthContext);
+  const handleLogout = () => {
+    logOut()
+      .then()
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   return (
     <Container>
       <Navbar
@@ -19,20 +25,18 @@ const NavigationBar = () => {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
-            <Link to="/categories/0">Home</Link>
+            <Link to="/category/0">Home</Link>
 
             <Nav.Link href="#pricing">About</Nav.Link>
             <Nav.Link href="#pricing">Carrer</Nav.Link>
           </Nav>
           <Nav>
-            {user && (
-              <Nav.Link href="#deets">
-                <FaUserCircle style={{ fontSize: "2rem" }}></FaUserCircle>
-              </Nav.Link>
-            )}
+            {user && <FaUserCircle style={{ fontSize: "2rem" }}></FaUserCircle>}
 
             {user ? (
-              <Button variant="secondary">Logout</Button>
+              <Button onClick={handleLogout} variant="secondary">
+                Logout
+              </Button>
             ) : (
               <Link to="/login">
                 <Button variant="secondary">Login</Button>
